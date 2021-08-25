@@ -1,13 +1,11 @@
 package com.tispunshahryar960103.coroutinesexample.viewModel
 
 import android.util.Patterns
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.tispunshahryar960103.coroutinesexample.displayMessages.Event
 import com.tispunshahryar960103.coroutinesexample.model.Subscriber
 import com.tispunshahryar960103.coroutinesexample.repository.SubscriberRepository
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class SubscriberViewModel(private val repository: SubscriberRepository):ViewModel() {
@@ -52,6 +50,13 @@ class SubscriberViewModel(private val repository: SubscriberRepository):ViewMode
             statusMessage.value = Event("Subscriber Inserted Successfully $newRowId")
         } else {
             statusMessage.value = Event("Error Occurred")
+        }
+    }
+
+
+    fun getSavedSubscribers() = liveData<List<Subscriber>> {
+        repository.subscribers.collect {
+            emit(it)
         }
     }
 
