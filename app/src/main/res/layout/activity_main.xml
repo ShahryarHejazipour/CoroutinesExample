@@ -74,7 +74,8 @@
                 android:textStyle="bold"
                 tools:ignore="SpeakableTextPresentCheck"
 
-                android:text="@={myViewModel.clearAllOrDeleteButtonText}"/>
+                android:text="@={myViewModel.clearAllOrDeleteButtonText}"
+                android:onClick="@{()->myViewModel.clearAllOrDelete()}"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
